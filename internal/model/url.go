@@ -7,8 +7,8 @@ import (
 )
 
 type URL struct {
-	ID          uuid.UUID `json:"id"`
-	ShortCode   string    `json:"short_code"`
-	OriginalURL string    `json:"original_url"`
-	CreatedAt   time.Time `json:"created_at"`
+    ID          uuid.UUID `json:"id" gorm:"type:uuid;primaryKey"`
+    ShortCode   string    `json:"short_code" gorm:"uniqueIndex"`
+    OriginalURL string    `json:"original_url"`
+    CreatedAt   time.Time `json:"created_at"`
 }
