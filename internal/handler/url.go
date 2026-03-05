@@ -2,21 +2,18 @@ package handler
 
 import (
 	"net/http"
-
 	"github.com/lukestarwalk/url-shorter/internal/service"
 )
 
-type URLService service.ULRService
-
 type URLHandler struct {
-	service *URLService
+	service *service.ULRService
 }
 
-func NewHandler(service *URLService) *URLHandler {
+func NewHandler(service *service.ULRService) *URLHandler {
 	return &URLHandler{service: service}
 }
 
-func HandleURL(w http.ResponseWriter, r *http.Request) {
+func (uh *URLHandler) HandleURL(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case "GET":
 	case "POST":
