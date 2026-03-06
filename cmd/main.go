@@ -38,8 +38,8 @@ func main() {
 	us := service.NewService(ur)
 	uh := handler.NewHandler(us)
 
-	http.HandleFunc("/shorten", uh.Shorten)
 	http.HandleFunc("/", uh.Redirect)
+	http.HandleFunc("/shorten", uh.Shorten)
 
 	fmt.Println("Servidor rodando em http://localhost:8080")
 

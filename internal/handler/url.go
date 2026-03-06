@@ -18,7 +18,7 @@ func NewHandler(service *service.ULRService) *URLHandler {
 }
 
 func (uh *URLHandler) Shorten(w http.ResponseWriter, r *http.Request) {
-	if http.MethodGet != r.Method {
+	if http.MethodPost != r.Method {
 		http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
 	}
 	var body struct {
@@ -37,7 +37,7 @@ func (uh *URLHandler) Shorten(w http.ResponseWriter, r *http.Request) {
 }
 
 func (uh *URLHandler) Redirect(w http.ResponseWriter, r *http.Request) {
-	if http.MethodPost != r.Method {
+	if http.MethodGet != r.Method {
 		http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
 	}
 	shorten := strings.TrimPrefix(r.URL.Path, "/")
@@ -46,5 +46,7 @@ func (uh *URLHandler) Redirect(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(err)
 		http.Error(w, "URL Not Found", http.StatusNotFound)
 	}
+	fmt.Println(err)
+	fmt.Println(url)
 	http.Redirect(w, r, url.OriginalURL, http.StatusMovedPermanently)
 }

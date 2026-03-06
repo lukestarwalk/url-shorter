@@ -23,6 +23,6 @@ func (r *URLRepository) Save(url *model.URL) (*model.URL, error) {
 
 func (r *URLRepository) FindByShortenCode(code string) (*model.URL, error) {
 	var url model.URL
-	result := r.db.Where("shortcode = ?", code).First(&url)
+	result := r.db.Where("short_code = ?", code).First(&url)
 	return &url, result.Error
 }
