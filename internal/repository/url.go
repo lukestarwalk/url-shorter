@@ -13,8 +13,12 @@ func NewRepository(db *gorm.DB) *URLRepository {
 	return &URLRepository{db: db}
 }
 
-func (r *URLRepository) Save(url *model.URL) error {
-	return r.db.Create(url).Error
+func (r *URLRepository) Save(url *model.URL) (*model.URL, error) {
+	err := r.db.Create(url).Error
+	if err != nil {
+		return nil, err
+	}
+	return url, nil
 }
 
 func (r *URLRepository) FindByShortenCode(code string) (*model.URL, error) {

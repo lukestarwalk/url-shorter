@@ -26,16 +26,22 @@ func main() {
 		DbName:   os.Getenv("DB_NAME"),
 		SSLMode:  os.Getenv("SSL_MODE"),
 	}
+
 	db, err := database.NewGormDB(&dc)
+
 	if err != nil {
 		fmt.Println("Failure Connecting to database!")
 		os.Exit(1)
 	}
+
 	ur := repository.NewRepository(db)
 	us := service.NewService(ur)
 	uh := handler.NewHandler(us)
-	
-	http.HandleFunc("/url", uh.HandleURL)
+
+	http.HandleFunc("/shorten", uh.Shorten)
+	http.HandleFunc("/", uh.Redirect)
+
 	fmt.Println("Servidor rodando em http://localhost:8080")
+
 	http.ListenAndServe(":8080", nil)
 }
